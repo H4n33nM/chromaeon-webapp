@@ -35,113 +35,282 @@ const artworks = await getUploadedArtworks();
   <div class="container">
     <header>
       <h1>Art Gallery</h1>
-      <a href="/post-artwork" class="post-button">Post New Artwork</a>
+      <a
+        href="/post-artwork"
+        class="post-button"
+        id="post-button"
+        style="display: none;"
+      >
+        <span class="button-icon">+</span>
+        Post New Artwork
+      </a>
     </header>
 
     <main>
-      {
-        artworks.length > 0 ? (
-          <div class="gallery">
-            {artworks.map((artwork) => (
-              <div class="artwork-card">
-                <img src={artwork.url} alt="Uploaded artwork" loading="lazy" />
-                <div class="artwork-info">
-                  <p class="upload-date">Uploaded on {artwork.uploadDate}</p>
+      <div id="auth-message" class="auth-message">
+        <h2>Welcome to ChromAeon!</h2>
+        <p>
+          Please <a href="/login">log in</a> or <a href="/signup">sign up</a> to
+          view and share artwork.
+        </p>
+      </div>
+
+      <div id="gallery-container" style="display: none;">
+        {
+          artworks.length > 0 ? (
+            <div class="gallery">
+              {artworks.map((artwork) => (
+                <div class="artwork-card">
+                  <div class="artwork-image-container">
+                    <img
+                      src={artwork.url}
+                      alt="Uploaded artwork"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="artwork-info">
+                    <p class="upload-date">Uploaded on {artwork.uploadDate}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div class="no-artworks">
-            <p>No artworks uploaded yet.</p>
-            <p>Be the first to share your artwork!</p>
-          </div>
-        )
-      }
+              ))}
+            </div>
+          ) : (
+            <div class="no-artworks">
+              <p>No artworks uploaded yet.</p>
+              <p>Be the first to share your artwork!</p>
+            </div>
+          )
+        }
+      </div>
     </main>
   </div>
 </Layout>
 
 <style>
   .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
+    min-height: 100vh;
+    font-family: "Advent Pro", sans-serif;
   }
 
   header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   h1 {
-    font-size: 2.5rem;
-    color: #333;
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin: 0;
+    padding-right: 20px;
+    font-weight: 600;
+    font-family: "Advent Pro", sans-serif;
   }
 
   .post-button {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background-color: #007bff;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: linear-gradient(45deg, #3498db, #2980b9);
     color: white;
     text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.2s;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .post-button:hover {
-    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, #2980b9, #3498db);
+  }
+
+  .button-icon {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
   }
 
   .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
+    padding: 1rem;
+    margin-top: 2rem;
   }
 
   .artwork-card {
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
   }
 
   .artwork-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .artwork-image-container {
+    position: relative;
+    padding-top: 100%;
+    overflow: hidden;
   }
 
   .artwork-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 300px;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .artwork-card:hover img {
+    transform: scale(1.05);
   }
 
   .artwork-info {
-    padding: 1rem;
+    padding: 1.5rem;
+    background: white;
   }
 
   .upload-date {
-    color: #666;
-    font-size: 0.875rem;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin: 0;
+    font-family: "Advent Pro", sans-serif;
   }
 
   .no-artworks {
     text-align: center;
     padding: 4rem;
-    background: #f8f9fa;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
   }
 
   .no-artworks p {
     margin: 0.5rem 0;
-    color: #666;
+    color: #7f8c8d;
+    font-family: "Advent Pro", sans-serif;
   }
 
   .no-artworks p:first-child {
-    font-size: 1.25rem;
-    color: #333;
+    font-size: 1.5rem;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+
+  .auth-message {
+    text-align: center;
+    padding: 4rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    margin: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .auth-message h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    font-family: "Advent Pro", sans-serif;
+  }
+
+  .auth-message p {
+    color: #7f8c8d;
+    font-size: 1.2rem;
+    margin: 0;
+    font-family: "Advent Pro", sans-serif;
+  }
+
+  .auth-message a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  .auth-message a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+
+    header {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .post-button {
+      margin: 0;
+    }
+
+    .gallery {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const authMessage = document.getElementById("auth-message");
+    const galleryContainer = document.getElementById("gallery-container");
+    const postButton = document.getElementById("post-button");
+
+    // Check if user is logged in
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+
+    if (currentUser && currentUser.username) {
+      // User is logged in
+      if (authMessage) authMessage.style.display = "none";
+      if (galleryContainer) galleryContainer.style.display = "block";
+      if (postButton) postButton.style.display = "inline-block";
+    } else {
+      // User is not logged in
+      if (authMessage) authMessage.style.display = "block";
+      if (galleryContainer) galleryContainer.style.display = "none";
+      if (postButton) postButton.style.display = "none";
+    }
+
+    // Listen for storage changes (in case of login/logout from another tab)
+    window.addEventListener("storage", (e) => {
+      if (e.key === "currentUser") {
+        const user = e.newValue ? JSON.parse(e.newValue) : {};
+        if (user && user.username) {
+          if (authMessage) authMessage.style.display = "none";
+          if (galleryContainer) galleryContainer.style.display = "block";
+          if (postButton) postButton.style.display = "inline-block";
+        } else {
+          if (authMessage) authMessage.style.display = "block";
+          if (galleryContainer) galleryContainer.style.display = "none";
+          if (postButton) postButton.style.display = "none";
+        }
+      }
+    });
+  });
+</script>

@@ -1,0 +1,279 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+---
+
+<Layout>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Advent+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <div id="container">
+    <main>
+      <section id="hero">
+        <h1>Your Profile</h1>
+      </section>
+
+      <div class="content-wrapper">
+        <section class="profile-section">
+          <div class="profile-banner">
+            <img src="/assets/default-banner.svg" alt="Profile Banner" />
+          </div>
+          <div class="profile-header">
+            <div class="profile-avatar">
+              <img src="/assets/default-avatar.svg" alt="Profile Avatar" />
+            </div>
+            <div class="profile-info">
+              <h2 id="profile-username">Loading...</h2>
+              <p class="member-since" id="member-since">
+                Member since: Loading...
+              </p>
+            </div>
+          </div>
+
+          <div class="profile-details">
+            <div class="detail-group">
+              <h3>Account Information</h3>
+              <div class="detail-item">
+                <span class="detail-label">Full Name:</span>
+                <span class="detail-value" id="fullname">Loading...</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Email:</span>
+                <span class="detail-value" id="email">Loading...</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Username:</span>
+                <span class="detail-value" id="username">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  #container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 3rem 0;
+    font-family: "Advent Pro", sans-serif;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    min-height: 100%;
+  }
+
+  #hero {
+    text-align: center;
+    max-width: 800px;
+    margin: 2rem auto 1rem;
+    padding-bottom: 1rem;
+  }
+
+  #hero h1 {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.2;
+    font-family: "Advent Pro", sans-serif;
+    font-weight: 600;
+  }
+
+  .content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    padding: 0 2rem;
+    position: relative;
+  }
+
+  .profile-section {
+    width: 100%;
+    max-width: 800px;
+    background: #54b4e2;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .profile-banner {
+    width: 100%;
+    height: 200px;
+    background: #e7f7ff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .profile-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: -50px 2rem 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+  }
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #e7f7ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #e7f7ff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .profile-info h2 {
+    color: #e7f7ff;
+    font-size: 1.75rem;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .member-since {
+    color: #e7f7ff;
+    opacity: 0.8;
+    font-size: 1rem;
+    margin: 0.5rem 0 0;
+  }
+
+  .profile-details {
+    margin-top: 1rem;
+    padding: 0 2rem 2rem;
+  }
+
+  .detail-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-group h3 {
+    color: #e7f7ff;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .detail-label {
+    color: #e7f7ff;
+    font-weight: 500;
+    min-width: 120px;
+  }
+
+  .detail-value {
+    color: #e7f7ff;
+    font-weight: 400;
+  }
+
+  @media (max-width: 768px) {
+    #container {
+      padding: 2rem 0;
+    }
+
+    #hero {
+      margin: 1rem auto 0.75rem;
+    }
+
+    .content-wrapper {
+      margin-bottom: 1.5rem;
+    }
+
+    main {
+      padding: 1rem;
+    }
+
+    .profile-section {
+      padding: 1.5rem;
+    }
+
+    .profile-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    #hero h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Get current user from localStorage
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+
+    // If no user is logged in, redirect to login page
+    if (!currentUser || !currentUser.username) {
+      window.location.href = "/login";
+      return;
+    }
+
+    // Update profile information
+    const profileUsername = document.getElementById("profile-username");
+    const fullname = document.getElementById("fullname");
+    const email = document.getElementById("email");
+    const username = document.getElementById("username");
+    const memberSince = document.getElementById("member-since");
+
+    if (profileUsername) profileUsername.textContent = currentUser.username;
+    if (fullname) fullname.textContent = currentUser.fullname;
+    if (email) email.textContent = currentUser.email;
+    if (username) username.textContent = currentUser.username;
+
+    // Format and display member since date
+    if (memberSince) {
+      const joinDate = new Date(currentUser.createdAt);
+      const formattedDate = joinDate.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      memberSince.textContent = `Member since: ${formattedDate}`;
+    }
+  });
+</script>

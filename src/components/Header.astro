@@ -31,7 +31,7 @@
           <a href="/signup" class="button">Sign Up</a>
         </div>
         <div id="user-info" style="display: none;">
-          <span class="username" id="username-display"></span>
+          <a href="/profile" class="username" id="username-display"></a>
           <button class="button" id="logoutBtn">Log Out</button>
         </div>
       </div>
@@ -220,10 +220,15 @@
 
   .username {
     color: #6461ab;
+    text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
     font-family: "Advent Pro", sans-serif;
-    margin-right: 0;
+    transition: color 0.2s;
+  }
+
+  .username:hover {
+    color: #4a4880;
   }
 
   #logoutBtn {
@@ -246,6 +251,27 @@
 
   #logoutBtn:hover {
     background-color: #c0392b;
+  }
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .profile-link {
+    color: #6461ab;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    font-family: "Advent Pro", sans-serif;
+    transition: color 0.2s;
+    opacity: 0.8;
+  }
+
+  .profile-link:hover {
+    color: #4a4880;
+    opacity: 1;
   }
 </style>
 

@@ -1,0 +1,109 @@
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <a href="/" class="nav-item">
+      <img src="/assets/home-icon.svg" alt="Home" class="nav-icon" />
+      <span class="nav-text">Home</span>
+    </a>
+    <a href="/search" class="nav-item">
+      <img src="/assets/search-icon.svg" alt="Search" class="nav-icon" />
+      <span class="nav-text">Search</span>
+    </a>
+    <a href="/faq" class="nav-item">
+      <img src="/assets/faq-icon.svg" alt="About and FAQ" class="nav-icon" />
+      <span class="nav-text">About and FAQ</span>
+    </a>
+    <a href="/resources" class="nav-item">
+      <img
+        src="/assets/resources-icon.svg"
+        alt="Learning Resources"
+        class="nav-icon"
+      />
+      <span class="nav-text">Learning Resources</span>
+    </a>
+  </nav>
+</div>
+
+<style>
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    background-color: #0a4c6a;
+    width: 280px;
+    transform: translateX(-220px);
+    transition: transform 0.3s ease;
+    z-index: 900;
+    overflow: hidden;
+  }
+
+  .sidebar.expanded {
+    transform: translateX(0);
+  }
+
+  .sidebar-nav {
+    padding-top: 120px;
+    padding-left: 20px;
+    padding-right: 40px;
+    width: calc(100% - 60px);
+    pointer-events: none;
+  }
+
+  .sidebar.expanded .sidebar-nav {
+    pointer-events: all;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    font-family: "Advent Pro", sans-serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    opacity: 0.6;
+    transition:
+      opacity 0.3s,
+      background-color 0.2s;
+  }
+
+  .sidebar.expanded .nav-item {
+    opacity: 1;
+  }
+
+  .nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    filter: brightness(0) invert(1);
+  }
+
+  .nav-text {
+    white-space: nowrap;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sidebar = document.getElementById("sidebar");
+
+    // Close sidebar when clicking outside
+    document.addEventListener("click", (e) => {
+      const clickedElement = e.target;
+      const isMenuBtn = clickedElement.closest("#menuToggle");
+      const isSidebar = clickedElement.closest(".sidebar");
+
+      if (!isMenuBtn && !isSidebar && sidebar?.classList.contains("expanded")) {
+        sidebar.classList.remove("expanded");
+      }
+    });
+  });
+</script>

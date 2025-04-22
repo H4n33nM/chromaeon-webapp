@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import Sidebar from "../components/Sidebar.astro";
 ---
 
 <!doctype html>
@@ -18,8 +19,11 @@ import Header from "../components/Header.astro";
     <title>ChromAeon</title>
   </head>
   <body>
+    <Sidebar />
     <Header />
-    <slot />
+    <main>
+      <slot />
+    </main>
   </body>
 </html>
 
@@ -30,5 +34,11 @@ import Header from "../components/Header.astro";
     width: 100%;
     height: 100%;
     background-color: #186990;
+  }
+
+  main {
+    margin-left: 60px;
+    padding: 1rem;
+    padding-top: 5rem;
   }
 </style>

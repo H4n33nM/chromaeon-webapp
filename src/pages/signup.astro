@@ -7,7 +7,6 @@ import "../styles/global.css";
 - success message does not show after sign-up
 - no record of the account after its creation
 - need to fix the width and placement of the sign-up form -->
-
 <Layout>
   <head>
     <link
@@ -530,4 +529,60 @@ import "../styles/global.css";
   }
 
   setupRealTimeValidation();
+
+  // Store accounts in localStorage
+  function getAccounts(): any[] {
+    const accounts = localStorage.getItem("accounts");
+    return accounts ? JSON.parse(accounts) : [];
+  }
+
+  function saveAccount(account: any): void {
+    const accounts = getAccounts();
+    accounts.push(account);
+    localStorage.setItem("accounts", JSON.stringify(accounts));
+  }
+
+  // Form submission handler
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Disable submit button and show loading state
+    const submitBtn = form.querySelector(".submit-btn") as HTMLButtonElement;
+    submitBtn.disabled = true;
+    submitBtn.classList.add("loading");
+
+    try {
+      // Get form data
+      const formData = new FormData(form);
+      const account = {
+        fullname: formData.get("fullname"),
+        username: formData.get("username"),
+        email: formData.get("email"),
+        password: formData.get("password"),
+        createdAt: new Date().toISOString(),
+      };
+
+      // Save account
+      saveAccount(account);
+
+      // Log saved accounts for verification
+      console.log("Account saved successfully!");
+      console.log("Current accounts in storage:", getAccounts());
+
+      // Show success message
+      successMessage.classList.add("show");
+
+      // Redirect to login page after 2 seconds
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
+    } catch (error) {
+      console.error("Error during signup:", error);
+      showError("submit", "An error occurred during signup. Please try again.");
+    } finally {
+      // Re-enable submit button
+      submitBtn.disabled = false;
+      submitBtn.classList.remove("loading");
+    }
+  });
 </script>

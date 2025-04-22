@@ -1,3 +1,7 @@
+---
+// Remove server-side localStorage check
+---
+
 <header class="header">
   <nav class="nav">
     <div class="left-nav">
@@ -22,8 +26,14 @@
 
     <div class="right-nav">
       <div class="login-and-signup">
-        <a href="/login" class="nav-link">Login</a>
-        <a href="/signup" class="button">Sign Up</a>
+        <div id="auth-buttons">
+          <a href="/login" class="nav-link">Login</a>
+          <a href="/signup" class="button">Sign Up</a>
+        </div>
+        <div id="user-info" style="display: none;">
+          <span class="username" id="username-display"></span>
+          <button class="button" id="logoutBtn">Log Out</button>
+        </div>
       </div>
     </div>
   </nav>
@@ -186,16 +196,104 @@
   .button:hover {
     background-color: #4a4880;
   }
+
+  .login-and-signup {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-left: 15rem;
+    margin-right: -8rem;
+  }
+
+  #auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  #user-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .username {
+    color: #6461ab;
+    font-weight: 600;
+    font-size: 1.1rem;
+    font-family: "Advent Pro", sans-serif;
+    margin-right: 0;
+  }
+
+  #logoutBtn {
+    cursor: pointer;
+    background-color: #e74c3c;
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    font-family: "Advent Pro", sans-serif;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: fit-content;
+  }
+
+  #logoutBtn:hover {
+    background-color: #c0392b;
+  }
 </style>
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
     const menuBtn = document.getElementById("menuToggle");
     const sidebar = document.getElementById("sidebar");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const authButtons = document.getElementById("auth-buttons");
+    const userInfo = document.getElementById("user-info");
+    const usernameDisplay = document.getElementById("username-display");
+
+    // Check login status and update UI
+    function updateAuthUI() {
+      const currentUser = JSON.parse(
+        localStorage.getItem("currentUser") || "{}"
+      );
+      if (currentUser && currentUser.username) {
+        // User is logged in
+        authButtons.style.display = "none";
+        userInfo.style.display = "flex";
+        usernameDisplay.textContent = currentUser.username;
+      } else {
+        // User is logged out
+        authButtons.style.display = "flex";
+        userInfo.style.display = "none";
+      }
+    }
+
+    // Initial check
+    updateAuthUI();
 
     menuBtn?.addEventListener("click", (e) => {
       e.stopPropagation();
       sidebar?.classList.toggle("expanded");
+    });
+
+    logoutBtn?.addEventListener("click", () => {
+      localStorage.removeItem("currentUser");
+      updateAuthUI();
+      window.location.href = "/";
+    });
+
+    // Listen for storage changes (in case of logout from another tab)
+    window.addEventListener("storage", (e) => {
+      if (e.key === "currentUser") {
+        updateAuthUI();
+      }
     });
   });
 </script>

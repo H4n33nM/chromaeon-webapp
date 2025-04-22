@@ -31,7 +31,15 @@
           <a href="/signup" class="button">Sign Up</a>
         </div>
         <div id="user-info" style="display: none;">
-          <a href="/profile" class="username" id="username-display"></a>
+          <div class="user-dropdown">
+            <button class="username" id="username-display"></button>
+            <div class="dropdown-menu">
+              <a href="/profile" class="dropdown-item">My Profile</a>
+              <a href="/post-artwork" class="dropdown-item"
+                >Post a New Artwork</a
+              >
+            </div>
+          </div>
           <button class="button" id="logoutBtn">Log Out</button>
         </div>
       </div>
@@ -218,16 +226,67 @@
     gap: 2rem;
   }
 
+  .user-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
   .username {
+    background: none;
+    border: none;
     color: #6461ab;
     text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
     font-family: "Advent Pro", sans-serif;
     transition: color 0.2s;
+    cursor: pointer;
+    padding: 0;
   }
 
   .username:hover {
+    color: #4a4880;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0;
+    min-width: 180px;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.2s ease-out;
+    z-index: 1000;
+  }
+
+  .dropdown-menu.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .user-dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #6461ab;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    font-family: "Advent Pro", sans-serif;
+    transition: background-color 0.2s;
+  }
+
+  .dropdown-item:hover {
+    background-color: #f5f5ff;
     color: #4a4880;
   }
 
@@ -283,6 +342,8 @@
     const authButtons = document.getElementById("auth-buttons");
     const userInfo = document.getElementById("user-info");
     const usernameDisplay = document.getElementById("username-display");
+    const userDropdown = document.querySelector(".user-dropdown");
+    const dropdownMenu = document.querySelector(".dropdown-menu");
 
     // Check login status and update UI
     function updateAuthUI() {
@@ -301,12 +362,29 @@
       }
     }
 
+    // Toggle dropdown menu with animation
+    function toggleDropdown() {
+      dropdownMenu.classList.toggle("show");
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!userDropdown.contains(e.target)) {
+        dropdownMenu.classList.remove("show");
+      }
+    });
+
     // Initial check
     updateAuthUI();
 
     menuBtn?.addEventListener("click", (e) => {
       e.stopPropagation();
       sidebar?.classList.toggle("expanded");
+    });
+
+    usernameDisplay?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleDropdown();
     });
 
     logoutBtn?.addEventListener("click", () => {

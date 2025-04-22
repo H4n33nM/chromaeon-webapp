@@ -1,0 +1,114 @@
+<header class="header">
+  <nav class="nav">
+    <div class="left-nav">
+      <a href="/shop" class="nav-link">Shop</a>
+    </div>
+
+    <div class="logo-container">
+      <a href="/" class="logo-link">
+        <img src="/logo.svg" alt="ChromAeon Logo" width="60" height="60" />
+        <div class="logo-text">
+          <span class="logo-chrom">Chrom</span><span class="logo-aeon"
+            >Aeon</span
+          >
+        </div>
+      </a>
+    </div>
+
+    <div class="right-nav">
+      <a href="/login" class="nav-link">Login</a>
+      <a href="/signup" class="button">Sign Up</a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .header {
+    background-color: #eef6ff;
+    padding: 0.75rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .left-nav,
+  .right-nav {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .right-nav {
+    justify-content: flex-end;
+    gap: 2rem;
+  }
+
+  .logo-container {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 0.5rem;
+  }
+
+  .logo-text {
+    font-size: 1.75rem;
+    font-weight: 400;
+    font-family: "Aclonica", sans-serif;
+    display: flex;
+  }
+
+  .logo-chrom {
+    color: #6461ab;
+  }
+
+  .logo-aeon {
+    color: #73d1ff;
+  }
+
+  .nav-link {
+    color: #6461ab;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: "Advent Pro", sans-serif;
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover {
+    color: #4a4880;
+  }
+
+  .button {
+    background-color: #6461ab;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    font-family: "Advent Pro", sans-serif;
+    transition: background-color 0.2s;
+  }
+
+  .button:hover {
+    background-color: #4a4880;
+  }
+</style>

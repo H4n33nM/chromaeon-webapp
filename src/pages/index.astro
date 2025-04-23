@@ -18,8 +18,14 @@ async function getUploadedArtworks() {
   // Get all files in the uploads directory
   const files = fs.readdirSync(uploadsDir);
 
-  // Return array of artwork objects
+  // Return array of artwork objects, excluding profile images
   return files
+    .filter(
+      (file) =>
+        !file.startsWith("avatar-") &&
+        !file.startsWith("banner-") &&
+        !file.startsWith("profiles")
+    )
     .map((file) => ({
       filename: file,
       url: `/uploads/${file}`,

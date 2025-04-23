@@ -124,11 +124,10 @@ import "../styles/global.css";
 <style>
   .artwork-form {
     max-width: 600px;
-    margin: 2rem auto;
+    margin: 4rem auto 2rem;
     padding: 3rem;
-    background: white;
+    background: transparent;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -144,6 +143,8 @@ import "../styles/global.css";
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
+    color: #ffffff;
+    font-family: "Advent Pro", sans-serif;
   }
 
   input[type="text"],
@@ -151,9 +152,17 @@ import "../styles/global.css";
   select {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    border: 2px solid #002c42;
     border-radius: 4px;
     font-size: 1rem;
+    background-color: #e7f7ff;
+    color: #6461ab;
+    font-family: "Advent Pro", sans-serif;
+  }
+
+  input[type="text"]::placeholder,
+  textarea::placeholder {
+    color: rgba(100, 97, 171, 0.7);
   }
 
   textarea {
@@ -163,30 +172,34 @@ import "../styles/global.css";
 
   .file-input {
     padding: 0.5rem;
-    border: 1px dashed #ddd;
-    background-color: #f8f9fa;
+    border: 2px solid #002c42;
+    background-color: #e7f7ff;
     width: 100%;
+    color: #6461ab;
   }
 
   .file-hint {
     margin-top: 0.5rem;
     font-size: 0.875rem;
-    color: #666;
+    color: #ffffff;
+    font-family: "Advent Pro", sans-serif;
   }
 
   .submit-button {
     width: 400px;
     padding: 1rem;
-    background-color: #007bff;
-    color: white;
+    background-color: #6461ab;
+    color: #dce3fd;
     border: none;
     border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.2s;
+    font-family: "Advent Pro", sans-serif;
+    font-weight: 500;
   }
 
   .submit-button:hover {
-    background-color: #0056b3;
+    background-color: #7673bd;
   }
 </style>

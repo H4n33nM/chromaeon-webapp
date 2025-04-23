@@ -33,6 +33,9 @@ import "../styles/global.css";
               <label for="password">Password</label>
               <input type="password" id="password" name="password" required />
               <span class="error-message" id="password-error"></span>
+              <a href="#" id="forgot-password" class="forgot-password"
+                >I forgot my password</a
+              >
             </div>
 
             <button type="submit" class="submit-btn">
@@ -43,6 +46,43 @@ import "../styles/global.css";
         </section>
       </div>
     </main>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgot-password-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Reset Password</h2>
+      <form id="reset-password-form">
+        <div class="form-group">
+          <label for="reset-username">Username</label>
+          <input type="text" id="reset-username" name="username" required />
+          <span class="error-message" id="reset-username-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="new-password">New Password</label>
+          <input
+            type="password"
+            id="new-password"
+            name="new-password"
+            required
+            minlength="8"
+          />
+          <span class="error-message" id="new-password-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="confirm-new-password">Confirm New Password</label>
+          <input
+            type="password"
+            id="confirm-new-password"
+            name="confirm-new-password"
+            required
+          />
+          <span class="error-message" id="confirm-new-password-error"></span>
+        </div>
+        <button type="submit" class="submit-btn">Reset Password</button>
+      </form>
+    </div>
   </div>
 </Layout>
 
@@ -200,6 +240,10 @@ import "../styles/global.css";
     pointer-events: none;
   }
 
+  #error-message.success {
+    background: #2ecc71;
+  }
+
   #error-message.show {
     transform: translateX(0);
   }
@@ -257,6 +301,71 @@ import "../styles/global.css";
       font-size: 2rem;
     }
   }
+
+  .forgot-password {
+    color: #e7f7ff;
+    font-size: 0.875rem;
+    text-decoration: none;
+    margin-top: 0.25rem;
+    transition: color 0.2s ease;
+  }
+
+  .forgot-password:hover {
+    color: #d1aeff;
+    text-decoration: underline;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+  }
+
+  .modal-content {
+    position: relative;
+    background-color: #54b4e2;
+    margin: 15% auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .close-modal {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    color: #e7f7ff;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .close-modal:hover {
+    color: #d1aeff;
+  }
+
+  .modal h2 {
+    color: #e7f7ff;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: "Advent Pro", sans-serif;
+  }
+
+  @media (max-width: 768px) {
+    .modal-content {
+      margin: 20% auto;
+      width: 95%;
+      padding: 1.5rem;
+    }
+  }
 </style>
 
 <script>
@@ -310,6 +419,7 @@ import "../styles/global.css";
   }
 
   function showError(fieldId: string, message: string): void {
+    console.log(`Showing error for ${fieldId}: ${message}`); // Debug log
     const input = document.getElementById(fieldId) as HTMLInputElement;
     const errorElement = document.getElementById(
       `${fieldId}-error`
@@ -318,10 +428,14 @@ import "../styles/global.css";
       errorElement.textContent = message;
       errorElement.className = "error-message show";
       input.classList.add("error");
+      console.log(`Error element classes: ${errorElement.className}`); // Debug log
+    } else {
+      console.error(`Error element not found for ${fieldId}`); // Debug log
     }
   }
 
   function clearError(fieldId: string): void {
+    console.log(`Clearing error for ${fieldId}`); // Debug log
     const input = document.getElementById(fieldId) as HTMLInputElement;
     const errorElement = document.getElementById(
       `${fieldId}-error`
@@ -401,4 +515,192 @@ import "../styles/global.css";
       submitBtn.classList.remove("loading");
     }
   });
+
+  // Forgot Password Modal
+  const forgotPasswordLink = document.getElementById("forgot-password");
+  const modal = document.getElementById("forgot-password-modal");
+  const closeModal = document.querySelector(".close-modal");
+  const resetPasswordForm = document.getElementById(
+    "reset-password-form"
+  ) as HTMLFormElement;
+
+  if (forgotPasswordLink && modal && closeModal) {
+    forgotPasswordLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (modal) modal.style.display = "block";
+    });
+
+    closeModal.addEventListener("click", () => {
+      if (modal) modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        if (modal) modal.style.display = "none";
+      }
+    });
+  }
+
+  // Reset Password Form Handler
+  if (resetPasswordForm) {
+    // Add real-time validation for modal inputs
+    const modalInputs = resetPasswordForm.querySelectorAll("input");
+    modalInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        const value = (input as HTMLInputElement).value.trim();
+        const id = input.id;
+
+        // Clear error state when user starts typing
+        clearError(id);
+
+        if (value === "") return; // Don't validate empty fields in real-time
+
+        if (id === "reset-username" && value.length < 3) {
+          showError(id, "Username must be at least 3 characters long");
+        }
+
+        // Validate password length
+        if (
+          (id === "new-password" || id === "confirm-new-password") &&
+          value.length < 8
+        ) {
+          showError(id, "Password must be at least 8 characters long");
+        }
+
+        // Validate password match
+        if (id === "new-password" || id === "confirm-new-password") {
+          const newPassword = (
+            document.getElementById("new-password") as HTMLInputElement
+          ).value;
+          const confirmPassword = (
+            document.getElementById("confirm-new-password") as HTMLInputElement
+          ).value;
+          const username = (
+            document.getElementById("reset-username") as HTMLInputElement
+          ).value;
+
+          console.log(
+            `Validating passwords: ${newPassword} vs ${confirmPassword}`
+          ); // Debug log
+
+          // Get current password for the username
+          const accounts = getAccounts();
+          const account = accounts.find((acc) => acc.username === username);
+
+          if (newPassword && confirmPassword) {
+            if (newPassword !== confirmPassword) {
+              console.log("Passwords don't match, showing error"); // Debug log
+              showError("confirm-new-password", "Passwords do not match");
+              clearError("new-password");
+            } else if (account && newPassword === account.password) {
+              showError(
+                "new-password",
+                "New password cannot be the same as current password"
+              );
+              showError(
+                "confirm-new-password",
+                "New password cannot be the same as current password"
+              );
+            } else {
+              clearError("new-password");
+              clearError("confirm-new-password");
+            }
+          }
+        }
+      });
+
+      // Also validate on blur (when field loses focus)
+      input.addEventListener("blur", () => {
+        const value = (input as HTMLInputElement).value.trim();
+        const id = input.id;
+
+        if (value === "") {
+          showError(id, "This field is required");
+        }
+      });
+    });
+
+    resetPasswordForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const username = (
+        document.getElementById("reset-username") as HTMLInputElement
+      ).value;
+      const newPassword = (
+        document.getElementById("new-password") as HTMLInputElement
+      ).value;
+      const confirmPassword = (
+        document.getElementById("confirm-new-password") as HTMLInputElement
+      ).value;
+
+      // Clear any existing errors
+      clearError("reset-username");
+      clearError("new-password");
+      clearError("confirm-new-password");
+
+      // Validate username
+      if (!username) {
+        showError("reset-username", "Username is required");
+        return;
+      }
+
+      if (username.length < 3) {
+        showError(
+          "reset-username",
+          "Username must be at least 3 characters long"
+        );
+        return;
+      }
+
+      // Validate new password
+      if (!newPassword) {
+        showError("new-password", "New password is required");
+        return;
+      }
+
+      if (newPassword.length < 8) {
+        showError(
+          "new-password",
+          "Password must be at least 8 characters long"
+        );
+        return;
+      }
+
+      // Validate confirm password
+      if (!confirmPassword) {
+        showError("confirm-new-password", "Please confirm your new password");
+        return;
+      }
+
+      // Validate passwords match
+      if (newPassword !== confirmPassword) {
+        showError("confirm-new-password", "Passwords do not match");
+        return;
+      }
+
+      // Get accounts from localStorage
+      const accounts = getAccounts();
+      const accountIndex = accounts.findIndex(
+        (acc) => acc.username === username
+      );
+
+      if (accountIndex === -1) {
+        showError("reset-username", "Username not found");
+        return;
+      }
+
+      // Update password
+      accounts[accountIndex].password = newPassword;
+      localStorage.setItem("accounts", JSON.stringify(accounts));
+
+      // Show success message
+      errorMessage.textContent = "Password reset successful!";
+      errorMessage.classList.add("show", "success");
+      setTimeout(() => {
+        errorMessage.classList.remove("show", "success");
+        if (modal) modal.style.display = "none";
+        resetPasswordForm.reset();
+      }, 3000);
+    });
+  }
 </script>

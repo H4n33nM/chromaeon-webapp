@@ -169,8 +169,14 @@ import "../styles/global.css";
     color: #ffe7e7;
     font-size: 0.875rem;
     margin-top: 0.25rem;
-    display: none;
+    display: block;
     font-family: "Advent Pro", sans-serif;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .error-message.show {
+    opacity: 1;
   }
 
   input.error {
@@ -273,6 +279,62 @@ import "../styles/global.css";
     return accounts ? JSON.parse(accounts) : [];
   }
 
+  // Real-time validation
+  function setupRealTimeValidation(): void {
+    const inputs = form.querySelectorAll("input");
+    inputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        const value = (input as HTMLInputElement).value.trim();
+        const id = input.id;
+
+        // Clear error state when user starts typing
+        clearError(id);
+
+        if (value === "") return; // Don't validate empty fields in real-time
+
+        if (id === "username" && value.length < 3) {
+          showError(id, "Username must be at least 3 characters long");
+        }
+      });
+
+      // Also validate on blur (when field loses focus)
+      input.addEventListener("blur", () => {
+        const value = (input as HTMLInputElement).value.trim();
+        const id = input.id;
+
+        if (value === "") {
+          showError(id, "This field is required");
+        }
+      });
+    });
+  }
+
+  function showError(fieldId: string, message: string): void {
+    const input = document.getElementById(fieldId) as HTMLInputElement;
+    const errorElement = document.getElementById(
+      `${fieldId}-error`
+    ) as HTMLElement;
+    if (errorElement) {
+      errorElement.textContent = message;
+      errorElement.className = "error-message show";
+      input.classList.add("error");
+    }
+  }
+
+  function clearError(fieldId: string): void {
+    const input = document.getElementById(fieldId) as HTMLInputElement;
+    const errorElement = document.getElementById(
+      `${fieldId}-error`
+    ) as HTMLElement;
+    if (input && errorElement) {
+      errorElement.textContent = "";
+      errorElement.className = "error-message";
+      input.classList.remove("error");
+    }
+  }
+
+  setupRealTimeValidation();
+
   // Form submission handler
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -292,36 +354,41 @@ import "../styles/global.css";
       const accounts = getAccounts();
 
       // Find matching account
-      const account = accounts.find(
-        (acc) => acc.username === username && acc.password === password
-      );
+      const account = accounts.find((acc) => acc.username === username);
 
-      if (account) {
-        // Store current user in localStorage
-        localStorage.setItem("currentUser", JSON.stringify(account));
-
-        // Log successful login
-        console.log("Login successful!");
-        console.log("Logged in user:", account);
-        console.log(
-          "Current user in localStorage:",
-          JSON.parse(localStorage.getItem("currentUser") || "{}")
-        );
-
-        // Redirect to homepage
-        window.location.href = "/";
-      } else {
-        // Log failed login attempt
-        console.log("Login failed: Invalid credentials");
-        console.log("Attempted login with:", { username, password });
-        console.log("Available accounts:", accounts);
-
-        // Show error message
+      if (!account) {
+        showError("username", "Username not found");
+        errorMessage.textContent = "Username not found";
         errorMessage.classList.add("show");
         setTimeout(() => {
           errorMessage.classList.remove("show");
         }, 3000);
+        return;
       }
+
+      if (account.password !== password) {
+        showError("password", "Password does not match");
+        errorMessage.textContent = "Password does not match";
+        errorMessage.classList.add("show");
+        setTimeout(() => {
+          errorMessage.classList.remove("show");
+        }, 3000);
+        return;
+      }
+
+      // Store current user in localStorage
+      localStorage.setItem("currentUser", JSON.stringify(account));
+
+      // Log successful login
+      console.log("Login successful!");
+      console.log("Logged in user:", account);
+      console.log(
+        "Current user in localStorage:",
+        JSON.parse(localStorage.getItem("currentUser") || "{}")
+      );
+
+      // Redirect to homepage
+      window.location.href = "/";
     } catch (error) {
       console.error("Error during login:", error);
       errorMessage.classList.add("show");

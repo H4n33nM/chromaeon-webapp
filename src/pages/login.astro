@@ -114,16 +114,19 @@ import "../styles/global.css";
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
+    min-height: 5rem;
+    position: relative;
   }
 
   label {
     font-weight: 500;
     color: #e7f7ff;
     font-family: "Advent Pro", sans-serif;
+    height: 1.5rem;
   }
 
   input {
-    padding: 0.875rem;
+    padding: 0.6rem 0.875rem;
     border: 2px solid #6461ab;
     border-radius: 4px;
     font-size: 1.1rem;
@@ -131,6 +134,7 @@ import "../styles/global.css";
     background-color: #e7f7ff;
     color: #6461ab;
     font-family: "Advent Pro", sans-serif;
+    height: 2rem;
   }
 
   input:focus {
@@ -168,9 +172,18 @@ import "../styles/global.css";
   .error-message {
     color: #ffe7e7;
     font-size: 0.875rem;
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
     display: none;
     font-family: "Advent Pro", sans-serif;
+    min-height: 1.5rem;
+    position: absolute;
+    bottom: -1.75rem;
+    left: 0;
+    width: 100%;
+  }
+
+  .error-message.show {
+    display: block;
   }
 
   input.error {
@@ -273,6 +286,66 @@ import "../styles/global.css";
     return accounts ? JSON.parse(accounts) : [];
   }
 
+  // Real-time validation
+  function setupRealTimeValidation(): void {
+    const inputs = form.querySelectorAll("input");
+    inputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        const value = (input as HTMLInputElement).value.trim();
+        const id = input.id;
+
+        // Clear error state when user starts typing
+        clearError(id);
+
+        if (value === "") return; // Don't validate empty fields in real-time
+
+        if (id === "username" && value.length < 3) {
+          showError(id, "Username must be at least 3 characters long");
+        }
+
+        if (id === "password" && value.length < 8) {
+          showError(id, "Password must be at least 8 characters long");
+        }
+      });
+
+      // Also validate on blur (when field loses focus)
+      input.addEventListener("blur", () => {
+        const value = (input as HTMLInputElement).value.trim();
+        const id = input.id;
+
+        if (value === "") {
+          showError(id, "This field is required");
+        }
+      });
+    });
+  }
+
+  function showError(fieldId: string, message: string): void {
+    const input = document.getElementById(fieldId) as HTMLInputElement;
+    const errorElement = document.getElementById(
+      `${fieldId}-error`
+    ) as HTMLElement;
+    if (errorElement) {
+      errorElement.textContent = message;
+      errorElement.className = "error-message show";
+      input.classList.add("error");
+    }
+  }
+
+  function clearError(fieldId: string): void {
+    const input = document.getElementById(fieldId) as HTMLInputElement;
+    const errorElement = document.getElementById(
+      `${fieldId}-error`
+    ) as HTMLElement;
+    if (input && errorElement) {
+      errorElement.textContent = "";
+      errorElement.className = "error-message";
+      input.classList.remove("error");
+    }
+  }
+
+  setupRealTimeValidation();
+
   // Form submission handler
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -287,6 +360,17 @@ import "../styles/global.css";
       const formData = new FormData(form);
       const username = formData.get("username") as string;
       const password = formData.get("password") as string;
+
+      // Validate fields before submission
+      if (!username || username.length < 3) {
+        showError("username", "Username must be at least 3 characters long");
+        return;
+      }
+
+      if (!password || password.length < 8) {
+        showError("password", "Password must be at least 8 characters long");
+        return;
+      }
 
       // Get stored accounts
       const accounts = getAccounts();

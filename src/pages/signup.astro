@@ -3,10 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
 ---
 
-<!--notes:
-- success message does not show after sign-up
-- no record of the account after its creation
-- need to fix the width and placement of the sign-up form -->
 <Layout>
   <head>
     <link
@@ -24,85 +20,106 @@ import "../styles/global.css";
         <h1>Come join us and be a part of a creative journey!</h1>
       </section>
 
-      <div class="content-wrapper">
-        <div class="mascot-container">
-          <img
-            src="/assets/mascotwave.gif"
-            alt="Waving Mascot"
-            class="mascot-image"
-          />
-        </div>
+      <section class="signup-form">
+        <form class="form-container" id="signupForm">
+          <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input
+              type="text"
+              id="fullname"
+              name="fullname"
+              required
+              minlength="2"
+            />
+            <span class="error-message" id="fullname-error"></span>
+          </div>
 
-        <section class="signup-form">
-          <form class="form-container" id="signupForm">
-            <div class="form-group">
-              <label for="fullname">Full Name</label>
-              <input
-                type="text"
-                id="fullname"
-                name="fullname"
-                required
-                minlength="2"
-              />
-              <span class="error-message" id="fullname-error"></span>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              required
+              minlength="3"
+            />
+            <span class="error-message" id="username-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+            <span class="error-message" id="email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="birthday">Birthday</label>
+            <input type="date" id="birthday" name="birthday" required />
+            <span class="error-message" id="birthday-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Gender</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="gender" value="male" required />
+                <span>Male</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="gender" value="female" />
+                <span>Female</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="gender" value="other" />
+                <span>Other</span>
+              </label>
             </div>
+            <span class="error-message" id="gender-error"></span>
+          </div>
 
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                required
-                minlength="3"
-              />
-              <span class="error-message" id="username-error"></span>
-            </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" required />
+            <span class="error-message" id="country-error"></span>
+          </div>
 
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required />
-              <span class="error-message" id="email-error"></span>
-            </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              minlength="8"
+            />
+            <span class="error-message" id="password-error"></span>
+          </div>
 
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                required
-                minlength="8"
-              />
-              <span class="error-message" id="password-error"></span>
-            </div>
+          <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              required
+            />
+            <span class="error-message" id="confirm-password-error"></span>
+          </div>
 
-            <div class="form-group">
-              <label for="confirm-password">Confirm Password</label>
-              <input
-                type="password"
-                id="confirm-password"
-                name="confirm-password"
-                required
-              />
-              <span class="error-message" id="confirm-password-error"></span>
-            </div>
-
-            <div class="form-group">
-              <label for="password-strength">Password Strength:</label>
-              <div class="password-strength">
-                <div id="password-strength-bar" class="password-strength-bar">
-                </div>
+          <div class="form-group">
+            <label for="password-strength">Password Strength:</label>
+            <div class="password-strength">
+              <div id="password-strength-bar" class="password-strength-bar">
               </div>
             </div>
+          </div>
 
-            <button type="submit" class="submit-btn">
-              Sign Up
-              <div class="loading-spinner"></div>
-            </button>
-          </form>
-        </section>
-      </div>
+          <button type="submit" class="submit-btn">
+            Sign Up
+            <div class="loading-spinner"></div>
+          </button>
+        </form>
+      </section>
     </main>
   </div>
 </Layout>
@@ -113,8 +130,9 @@ import "../styles/global.css";
     display: flex;
     flex-direction: column;
     position: relative;
-    padding: 3rem 0;
+    padding: 3rem 0 8rem 0;
     font-family: "Advent Pro", sans-serif;
+    margin-top: 14rem;
   }
 
   main {
@@ -125,13 +143,15 @@ import "../styles/global.css";
     justify-content: center;
     padding: 2rem;
     min-height: 100%;
+    padding-bottom: 4rem;
   }
 
   #hero {
     text-align: center;
     max-width: 800px;
     margin: 2rem auto 1rem;
-    padding-bottom: 1rem;
+    position: relative;
+    z-index: 1;
   }
 
   #hero h1 {
@@ -141,6 +161,9 @@ import "../styles/global.css";
     line-height: 1.2;
     font-family: "Advent Pro", sans-serif;
     font-weight: 600;
+    position: relative;
+    right: -30px;
+    z-index: 2;
   }
 
   .content-wrapper {
@@ -154,55 +177,47 @@ import "../styles/global.css";
     padding: 0 2rem;
     position: relative;
     overflow: visible;
-  }
-
-  .mascot-container {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-left: -10rem;
-    min-width: 400px;
-  }
-
-  .mascot-image {
-    max-width: 550px;
-    height: auto;
-    object-fit: contain;
-    transform: scaleX(-1);
+    z-index: 1;
   }
 
   .signup-form {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     background: #54b4e2;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     margin: 0 auto;
-    margin-bottom: 5rem;
+    margin-bottom: 8rem;
+    height: fit-content;
+    position: relative;
+    z-index: 1;
   }
 
   .form-container {
     display: flex;
     flex-direction: column;
     gap: 1.75rem;
+    height: fit-content;
   }
 
   .form-group {
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
+    min-height: 5rem;
+    position: relative;
   }
 
   label {
     font-weight: 500;
     color: #e7f7ff;
     font-family: "Advent Pro", sans-serif;
+    height: 1.5rem;
   }
 
   input {
-    padding: 0.875rem;
+    padding: 0.6rem 0.875rem;
     border: 2px solid #6461ab;
     border-radius: 4px;
     font-size: 1.1rem;
@@ -210,6 +225,7 @@ import "../styles/global.css";
     background-color: #e7f7ff;
     color: #6461ab;
     font-family: "Advent Pro", sans-serif;
+    height: 2rem;
   }
 
   input:focus {
@@ -247,9 +263,18 @@ import "../styles/global.css";
   .error-message {
     color: #ffe7e7;
     font-size: 0.875rem;
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
     display: none;
     font-family: "Advent Pro", sans-serif;
+    min-height: 1.5rem;
+    position: absolute;
+    bottom: -1.75rem;
+    left: 0;
+    width: 100%;
+  }
+
+  .error-message.show {
+    display: block;
   }
 
   input.error {
@@ -334,7 +359,7 @@ import "../styles/global.css";
     }
 
     .signup-form {
-      max-width: 600px;
+      max-width: 800px;
     }
   }
 
@@ -357,7 +382,7 @@ import "../styles/global.css";
     }
 
     .signup-form {
-      max-width: 550px;
+      max-width: 800px;
       padding: 2rem;
     }
   }
@@ -392,6 +417,32 @@ import "../styles/global.css";
     #hero h1 {
       font-size: 2rem;
     }
+  }
+
+  .radio-group {
+    display: flex;
+    gap: 2rem;
+    margin-top: 0.5rem;
+  }
+
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: #e7f7ff;
+    font-weight: 500;
+  }
+
+  .radio-label input[type="radio"] {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .radio-label span {
+    font-family: "Advent Pro", sans-serif;
   }
 </style>
 
@@ -554,11 +605,23 @@ import "../styles/global.css";
     try {
       // Get form data
       const formData = new FormData(form);
+      const password = formData.get("password") as string;
+      const confirmPassword = formData.get("confirm-password") as string;
+
+      // Check if passwords match
+      if (password !== confirmPassword) {
+        showError("confirm-password", "Passwords do not match");
+        return;
+      }
+
       const account = {
         fullname: formData.get("fullname"),
         username: formData.get("username"),
         email: formData.get("email"),
-        password: formData.get("password"),
+        birthday: formData.get("birthday"),
+        gender: formData.get("gender"),
+        country: formData.get("country"),
+        password: password,
         createdAt: new Date().toISOString(),
       };
 

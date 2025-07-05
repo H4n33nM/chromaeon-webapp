@@ -20,11 +20,41 @@ import "../styles/global.css";
       <div class="content-wrapper">
         <section class="profile-section">
           <div class="profile-banner">
-            <img src="/assets/default-banner.svg" alt="Profile Banner" />
+            <img
+              src="/assets/default-banner.svg"
+              alt="Profile Banner"
+              id="banner-image"
+            />
+            <div class="upload-overlay">
+              <label for="banner-upload" class="upload-button">
+                <span>Change Banner</span>
+                <input
+                  type="file"
+                  id="banner-upload"
+                  accept="image/*"
+                  style="display: none;"
+                />
+              </label>
+            </div>
           </div>
           <div class="profile-header">
             <div class="profile-avatar">
-              <img src="/assets/default-avatar.svg" alt="Profile Avatar" />
+              <img
+                src="/assets/default-avatar.svg"
+                alt="Profile Avatar"
+                id="avatar-image"
+              />
+              <div class="upload-overlay">
+                <label for="avatar-upload" class="upload-button">
+                  <span>Change Photo</span>
+                  <input
+                    type="file"
+                    id="avatar-upload"
+                    accept="image/*"
+                    style="display: none;"
+                  />
+                </label>
+              </div>
             </div>
             <div class="profile-info">
               <h2 id="profile-username">Loading...</h2>
@@ -42,12 +72,16 @@ import "../styles/global.css";
                 <span class="detail-value" id="fullname">Loading...</span>
               </div>
               <div class="detail-item">
-                <span class="detail-label">Email:</span>
-                <span class="detail-value" id="email">Loading...</span>
-              </div>
-              <div class="detail-item">
                 <span class="detail-label">Username:</span>
                 <span class="detail-value" id="username">Loading...</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Gender:</span>
+                <span class="detail-value" id="gender">Loading...</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Country:</span>
+                <span class="detail-value" id="country">Loading...</span>
               </div>
             </div>
           </div>
@@ -123,6 +157,24 @@ import "../styles/global.css";
     overflow: hidden;
   }
 
+  .profile-banner .upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .profile-banner:hover .upload-overlay {
+    opacity: 1;
+  }
+
   .profile-banner img {
     width: 100%;
     height: 100%;
@@ -151,6 +203,26 @@ import "../styles/global.css";
     justify-content: center;
     border: 3px solid #e7f7ff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .profile-avatar .upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 50%;
+  }
+
+  .profile-avatar:hover .upload-overlay {
+    opacity: 1;
   }
 
   .profile-avatar img {
@@ -209,6 +281,20 @@ import "../styles/global.css";
     font-weight: 400;
   }
 
+  .upload-button {
+    background: #54b4e2;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .upload-button:hover {
+    background: #3a9bc8;
+  }
+
   @media (max-width: 768px) {
     #container {
       padding: 2rem 0;
@@ -256,14 +342,26 @@ import "../styles/global.css";
     // Update profile information
     const profileUsername = document.getElementById("profile-username");
     const fullname = document.getElementById("fullname");
-    const email = document.getElementById("email");
     const username = document.getElementById("username");
+    const gender = document.getElementById("gender");
+    const country = document.getElementById("country");
     const memberSince = document.getElementById("member-since");
+    const avatarImage = document.getElementById(
+      "avatar-image"
+    ) as HTMLImageElement | null;
+    const bannerImage = document.getElementById(
+      "banner-image"
+    ) as HTMLImageElement | null;
+
+    // Set initial images if they exist in user data
+    if (currentUser.avatar && avatarImage) avatarImage.src = currentUser.avatar;
+    if (currentUser.banner && bannerImage) bannerImage.src = currentUser.banner;
 
     if (profileUsername) profileUsername.textContent = currentUser.username;
     if (fullname) fullname.textContent = currentUser.fullname;
-    if (email) email.textContent = currentUser.email;
     if (username) username.textContent = currentUser.username;
+    if (gender) gender.textContent = currentUser.gender;
+    if (country) country.textContent = currentUser.country;
 
     // Format and display member since date
     if (memberSince) {
@@ -274,6 +372,104 @@ import "../styles/global.css";
         day: "numeric",
       });
       memberSince.textContent = `Member since: ${formattedDate}`;
+    }
+
+    // Handle avatar upload
+    const avatarUpload = document.getElementById(
+      "avatar-upload"
+    ) as HTMLInputElement | null;
+    if (avatarUpload) {
+      avatarUpload.addEventListener("change", async (e) => {
+        const target = e.target as HTMLInputElement;
+        const file = target.files?.[0];
+        if (file && avatarImage) {
+          try {
+            const formData = new FormData();
+            formData.append("avatar", file);
+            formData.append("userId", currentUser.id);
+
+            const response = await fetch("/api/upload-avatar", {
+              method: "POST",
+              body: formData,
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              avatarImage.src = data.avatarUrl;
+
+              // Update currentUser
+              currentUser.avatar = data.avatarUrl;
+              localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+              // Update in accounts array
+              const accounts = JSON.parse(
+                localStorage.getItem("accounts") || "[]"
+              );
+              const accountIndex = accounts.findIndex(
+                (acc: any) => acc.username === currentUser.username
+              );
+              if (accountIndex !== -1) {
+                accounts[accountIndex].avatar = data.avatarUrl;
+                localStorage.setItem("accounts", JSON.stringify(accounts));
+              }
+            } else {
+              alert("Failed to upload avatar. Please try again.");
+            }
+          } catch (error) {
+            console.error("Error uploading avatar:", error);
+            alert("An error occurred while uploading the avatar.");
+          }
+        }
+      });
+    }
+
+    // Handle banner upload
+    const bannerUpload = document.getElementById(
+      "banner-upload"
+    ) as HTMLInputElement | null;
+    if (bannerUpload) {
+      bannerUpload.addEventListener("change", async (e) => {
+        const target = e.target as HTMLInputElement;
+        const file = target.files?.[0];
+        if (file && bannerImage) {
+          try {
+            const formData = new FormData();
+            formData.append("banner", file);
+            formData.append("userId", currentUser.id);
+
+            const response = await fetch("/api/upload-banner", {
+              method: "POST",
+              body: formData,
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              bannerImage.src = data.bannerUrl;
+
+              // Update currentUser
+              currentUser.banner = data.bannerUrl;
+              localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+              // Update in accounts array
+              const accounts = JSON.parse(
+                localStorage.getItem("accounts") || "[]"
+              );
+              const accountIndex = accounts.findIndex(
+                (acc: any) => acc.username === currentUser.username
+              );
+              if (accountIndex !== -1) {
+                accounts[accountIndex].banner = data.bannerUrl;
+                localStorage.setItem("accounts", JSON.stringify(accounts));
+              }
+            } else {
+              alert("Failed to upload banner. Please try again.");
+            }
+          } catch (error) {
+            console.error("Error uploading banner:", error);
+            alert("An error occurred while uploading the banner.");
+          }
+        }
+      });
     }
   });
 </script>

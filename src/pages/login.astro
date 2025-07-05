@@ -18,29 +18,44 @@ import "../styles/global.css";
     <main>
       <section id="hero">
         <h1>You're one click away to a world of imagination!</h1>
+        <p>Sign in to continue your creative journey</p>
       </section>
 
       <div class="content-wrapper">
-        <section class="login-form">
-          <form class="form-container" id="loginForm">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" id="username" name="username" required />
-              <span class="error-message" id="username-error"></span>
-            </div>
+        <div class="left-section">
+          <section class="login-form">
+            <form class="form-container" id="loginForm">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required />
+                <span class="field-error" id="username-error"></span>
+              </div>
 
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" id="password" name="password" required />
-              <span class="error-message" id="password-error"></span>
-            </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required />
+                <span class="field-error" id="password-error"></span>
+              </div>
 
-            <button type="submit" class="submit-btn">
-              Login
-              <div class="loading-spinner"></div>
-            </button>
-          </form>
-        </section>
+              <button type="submit" class="submit-btn">
+                Login
+                <div class="loading-spinner"></div>
+              </button>
+              <a href="/change-password" class="change-password-link"
+                >Change password</a
+              >
+            </form>
+          </section>
+        </div>
+        <div class="banner-wrapper">
+          <div class="banner-container">
+            <img
+              src="/assets/side-banner.png"
+              alt="Login Banner"
+              class="banner-image"
+            />
+          </div>
+        </div>
       </div>
     </main>
   </div>
@@ -52,8 +67,9 @@ import "../styles/global.css";
     display: flex;
     flex-direction: column;
     position: relative;
-    padding: 3rem 0;
+    padding: 2rem 0;
     font-family: "Advent Pro", sans-serif;
+    margin-top: 5.5rem;
   }
 
   main {
@@ -61,8 +77,8 @@ import "../styles/global.css";
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 2rem;
+    justify-content: flex-start;
+    padding: 0rem;
     min-height: 100%;
   }
 
@@ -74,40 +90,70 @@ import "../styles/global.css";
   }
 
   #hero h1 {
-    font-size: 2.5rem;
+    font-size: 3.25rem;
     color: #ffffff;
     margin: 0;
     line-height: 1.2;
     font-family: "Advent Pro", sans-serif;
     font-weight: 600;
+    padding-bottom: 20px;
   }
 
   .content-wrapper {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: space-between;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto 2rem;
     padding: 0 2rem;
     position: relative;
+    gap: 4rem;
+  }
+
+  .left-section {
+    flex: 0 1 auto;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .banner-wrapper {
+    flex: 0 0 auto;
+    position: fixed;
+    top: 5.25rem;
+    right: -3.5rem;
+    height: calc(100vh - 5.25rem);
+    display: flex;
+    align-items: center;
+  }
+
+  .banner-container {
+    width: 400px;
+    height: 100%;
+  }
+
+  .banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   .login-form {
     width: 100%;
-    max-width: 500px;
+    height: 380px;
     background: #54b4e2;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    margin: 0 auto;
+    margin: 0;
     margin-bottom: 5rem;
+    margin-left: 5.8rem;
   }
 
   .form-container {
     display: flex;
     flex-direction: column;
-    gap: 1.75rem;
+    gap: 2.5rem;
+    padding: 10px 0px;
   }
 
   .form-group {
@@ -122,6 +168,7 @@ import "../styles/global.css";
     font-weight: 500;
     color: #e7f7ff;
     font-family: "Advent Pro", sans-serif;
+    font-size: 18px;
     height: 1.5rem;
   }
 
@@ -144,12 +191,12 @@ import "../styles/global.css";
   }
 
   .submit-btn {
-    padding: 0.75rem;
+    padding: 1rem;
     background-color: #6461ab;
     color: #e7f7ff;
     border: none;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -170,28 +217,6 @@ import "../styles/global.css";
   }
 
   .error-message {
-    color: #ffe7e7;
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
-    display: none;
-    font-family: "Advent Pro", sans-serif;
-    min-height: 1.5rem;
-    position: absolute;
-    bottom: -1.75rem;
-    left: 0;
-    width: 100%;
-  }
-
-  .error-message.show {
-    display: block;
-  }
-
-  input.error {
-    border-color: #e61b1b;
-    background-color: #ffe7e7;
-  }
-
-  #error-message {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -207,8 +232,30 @@ import "../styles/global.css";
     pointer-events: none;
   }
 
-  #error-message.show {
+  .error-message.show {
     transform: translateX(0);
+  }
+
+  .field-error {
+    color: #ffe7e7;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: none;
+    font-family: "Advent Pro", sans-serif;
+    min-height: 1.5rem;
+    position: absolute;
+    bottom: -1.75rem;
+    left: 0;
+    width: 100%;
+  }
+
+  .field-error.show {
+    display: block;
+  }
+
+  input.error {
+    border-color: #e61b1b;
+    background-color: #ffe7e7;
   }
 
   .loading-spinner {
@@ -236,6 +283,7 @@ import "../styles/global.css";
   @media (max-width: 768px) {
     #container {
       padding: 2rem 0;
+      margin-top: 5.5rem;
     }
 
     #hero {
@@ -243,7 +291,28 @@ import "../styles/global.css";
     }
 
     .content-wrapper {
+      flex-direction: column;
       margin-bottom: 1.5rem;
+      gap: 2rem;
+    }
+
+    .left-section {
+      max-width: 100%;
+    }
+
+    .banner-wrapper {
+      position: relative;
+      top: 0;
+      right: 0;
+      height: auto;
+      order: -1;
+      margin-bottom: 2rem;
+    }
+
+    .banner-container {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
     }
 
     main {
@@ -263,6 +332,20 @@ import "../styles/global.css";
     #hero h1 {
       font-size: 2rem;
     }
+  }
+
+  .change-password-link {
+    color: #e7f7ff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: inline-block;
+    transition: color 0.2s ease;
+  }
+
+  .change-password-link:hover {
+    color: #ffffff;
+    text-decoration: underline;
   }
 </style>
 
@@ -327,7 +410,7 @@ import "../styles/global.css";
     ) as HTMLElement;
     if (errorElement) {
       errorElement.textContent = message;
-      errorElement.className = "error-message show";
+      errorElement.className = "field-error show";
       input.classList.add("error");
     }
   }
@@ -339,7 +422,7 @@ import "../styles/global.css";
     ) as HTMLElement;
     if (input && errorElement) {
       errorElement.textContent = "";
-      errorElement.className = "error-message";
+      errorElement.className = "field-error";
       input.classList.remove("error");
     }
   }
@@ -377,7 +460,7 @@ import "../styles/global.css";
 
       // Find matching account
       const account = accounts.find(
-        (acc) => acc.username === username && acc.password === password
+        (acc: any) => acc.username === username && acc.password === password
       );
 
       if (account) {

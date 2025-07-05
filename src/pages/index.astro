@@ -8,7 +8,60 @@ import "../styles/global.css";
     <main>
       <section id="hero">
         <h1>Welcome to ChromAeon!</h1>
+        <p>Discover amazing artworks from our inspiring community!</p>
       </section>
+
+      <div class="artworks-grid" id="artworksGrid">
+        <!-- Artworks will be loaded here -->
+      </div>
     </main>
   </div>
 </Layout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const artworksGrid = document.getElementById("artworksGrid");
+    if (!artworksGrid) return;
+
+    // Get artworks from localStorage
+    const artworks = JSON.parse(localStorage.getItem("artworks") || "[]");
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+
+    // Sort artworks by creation date (newest first)
+    artworks.sort(
+      (a: any, b: any) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+
+    // Create artwork cards
+    artworks.forEach((artwork: any) => {
+      const card = document.createElement("div");
+      card.className = "artwork-card";
+
+      card.innerHTML = `
+        <div class="artwork-image">
+          <img src="${artwork.imageUrl}" alt="${artwork.title}" />
+        </div>
+        <div class="artwork-info">
+          <h3>${artwork.title}</h3>
+          <p class="artwork-description">${artwork.description || ""}</p>
+          <div class="artwork-meta">
+            <span class="artwork-category">${artwork.category}</span>
+            <span class="artwork-likes">❤️ ${artwork.likes}</span>
+          </div>
+          <div class="artwork-tags">
+            ${artwork.tags
+              .map((tag: string) => `<span class="tag">#${tag}</span>`)
+              .join("")}
+          </div>
+        </div>
+      `;
+
+      artworksGrid.appendChild(card);
+    });
+  });
+</script>
+
+<style>
+  /* Removed artwork grid and card styles from here */
+</style>

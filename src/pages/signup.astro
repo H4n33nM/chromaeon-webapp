@@ -18,634 +18,693 @@ import "../styles/global.css";
     <main>
       <section id="hero">
         <h1>Come join us and be a part of a creative journey!</h1>
+        <p>Create your account and start sharing your art</p>
       </section>
 
-      <section class="signup-form">
-        <form class="form-container" id="signupForm">
-          <div class="form-group">
-            <label for="fullname">Full Name</label>
-            <input
-              type="text"
-              id="fullname"
-              name="fullname"
-              required
-              minlength="2"
-            />
-            <span class="error-message" id="fullname-error"></span>
-          </div>
+      <div class="content-wrapper">
+        <div class="mascot-container">
+          <img
+            src="/assets/mascotwave.gif"
+            alt="Waving Mascot"
+            class="mascot-image"
+          />
+        </div>
 
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              required
-              minlength="3"
-            />
-            <span class="error-message" id="username-error"></span>
-          </div>
+        <section class="signup-form">
+          <form class="form-container" id="signupForm">
+            <div class="form-container">
+              <div class="form-groups">
+                <div class="group-a">
+                  <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input
+                      type="text"
+                      id="fullname"
+                      name="fullname"
+                      required
+                      minlength="2"
+                    />
+                    <span class="error-message" id="fullname-error"></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="birthday">Birthday</label>
+                    <input type="date" id="birthday" name="birthday" required />
+                    <span class="error-message" id="birthday-error"></span>
+                  </div>
+                  <div class="form-group">
+                    <label>Gender</label>
+                    <div class="radio-group">
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          name="gender"
+                          value="male"
+                          required
+                        />
+                        <span>Male</span>
+                      </label>
+                      <label class="radio-label">
+                        <input type="radio" name="gender" value="female" />
+                        <span>Female</span>
+                      </label>
+                    </div>
+                    <span class="error-message" id="gender-error"></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" name="country" required />
+                    <span class="error-message" id="country-error"></span>
+                  </div>
+                </div>
 
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required />
-            <span class="error-message" id="email-error"></span>
-          </div>
+                <div class="group-b">
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input
+                      type="text"
+                      id="username"
+                      name="username"
+                      required
+                      minlength="3"
+                    />
+                    <span class="error-message" id="username-error"></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required />
+                    <span class="error-message" id="email-error"></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      required
+                      minlength="8"
+                    />
+                    <span class="error-message" id="password-error"></span>
+                  </div>
 
-          <div class="form-group">
-            <label for="birthday">Birthday</label>
-            <input type="date" id="birthday" name="birthday" required />
-            <span class="error-message" id="birthday-error"></span>
-          </div>
-
-          <div class="form-group">
-            <label>Gender</label>
-            <div class="radio-group">
-              <label class="radio-label">
-                <input type="radio" name="gender" value="male" required />
-                <span>Male</span>
-              </label>
-              <label class="radio-label">
-                <input type="radio" name="gender" value="female" />
-                <span>Female</span>
-              </label>
-              <label class="radio-label">
-                <input type="radio" name="gender" value="other" />
-                <span>Other</span>
-              </label>
-            </div>
-            <span class="error-message" id="gender-error"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="country">Country</label>
-            <input type="text" id="country" name="country" required />
-            <span class="error-message" id="country-error"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              required
-              minlength="8"
-            />
-            <span class="error-message" id="password-error"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="confirm-password">Confirm Password</label>
-            <input
-              type="password"
-              id="confirm-password"
-              name="confirm-password"
-              required
-            />
-            <span class="error-message" id="confirm-password-error"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="password-strength">Password Strength:</label>
-            <div class="password-strength">
-              <div id="password-strength-bar" class="password-strength-bar">
+                  <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input
+                      type="password"
+                      id="confirm-password"
+                      name="confirm-password"
+                      required
+                    />
+                    <span class="error-message" id="confirm-password-error"
+                    ></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="password-strength">Password Strength:</label>
+                    <div class="password-strength">
+                      <div
+                        id="password-strength-bar"
+                        class="password-strength-bar"
+                      >
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <button type="submit" class="submit-btn">
-            Sign Up
-            <div class="loading-spinner"></div>
-          </button>
-        </form>
-      </section>
+              <button type="submit" class="submit-btn">
+                Sign Up
+                <div class="loading-spinner"></div>
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
     </main>
   </div>
-</Layout>
 
-<style>
-  #container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding: 3rem 0 8rem 0;
-    font-family: "Advent Pro", sans-serif;
-    margin-top: 14rem;
-  }
-
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    min-height: 100%;
-    padding-bottom: 4rem;
-  }
-
-  #hero {
-    text-align: center;
-    max-width: 800px;
-    margin: 2rem auto 1rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  #hero h1 {
-    font-size: 2.5rem;
-    color: #ffffff;
-    margin: 0;
-    line-height: 1.2;
-    font-family: "Advent Pro", sans-serif;
-    font-weight: 600;
-    position: relative;
-    right: -30px;
-    z-index: 2;
-  }
-
-  .content-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 4rem;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto 2rem;
-    padding: 0 2rem;
-    position: relative;
-    overflow: visible;
-    z-index: 1;
-  }
-
-  .signup-form {
-    width: 100%;
-    max-width: 800px;
-    background: #54b4e2;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    margin: 0 auto;
-    margin-bottom: 8rem;
-    height: fit-content;
-    position: relative;
-    z-index: 1;
-  }
-
-  .form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
-    height: fit-content;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    min-height: 5rem;
-    position: relative;
-  }
-
-  label {
-    font-weight: 500;
-    color: #e7f7ff;
-    font-family: "Advent Pro", sans-serif;
-    height: 1.5rem;
-  }
-
-  input {
-    padding: 0.6rem 0.875rem;
-    border: 2px solid #6461ab;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    transition: all 0.2s ease;
-    background-color: #e7f7ff;
-    color: #6461ab;
-    font-family: "Advent Pro", sans-serif;
-    height: 2rem;
-  }
-
-  input:focus {
-    outline: none;
-    border-color: #d1aeff;
-    box-shadow: 0 0 0 2px rgba(209, 174, 255, 0.2);
-  }
-
-  .submit-btn {
-    padding: 0.75rem;
-    background-color: #6461ab;
-    color: #e7f7ff;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Advent Pro", sans-serif;
-  }
-
-  .submit-btn:hover {
-    background-color: #7673bd;
-  }
-
-  .submit-btn:disabled {
-    background-color: #9997c4;
-    cursor: not-allowed;
-  }
-
-  .error-message {
-    color: #ffe7e7;
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
-    display: none;
-    font-family: "Advent Pro", sans-serif;
-    min-height: 1.5rem;
-    position: absolute;
-    bottom: -1.75rem;
-    left: 0;
-    width: 100%;
-  }
-
-  .error-message.show {
-    display: block;
-  }
-
-  input.error {
-    border-color: #e61b1b;
-    background-color: #ffe7e7;
-  }
-
-  .password-strength {
-    height: 4px;
-    background: #6461ab;
-    border-radius: 2px;
-    margin-top: 0.5rem;
-    overflow: hidden;
-  }
-
-  .password-strength-bar {
-    height: 100%;
-    width: 0;
-    transition:
-      width 0.3s ease,
-      background-color 0.3s ease;
-  }
-
-  .strength-weak {
-    background-color: #e74c3c;
-  }
-  .strength-medium {
-    background-color: #f39c12;
-  }
-  .strength-strong {
-    background-color: #2ecc71;
-  }
-
-  .success-message {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #2ecc71;
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transform: translateX(120%);
-    transition: transform 0.3s ease;
-    z-index: 9999;
-    font-weight: 500;
-    pointer-events: none;
-  }
-
-  .success-message.show {
-    transform: translateX(0);
-  }
-
-  .loading-spinner {
-    display: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: spin 1s ease-in-out infinite;
-    position: absolute;
-    right: 1rem;
-  }
-
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .submit-btn.loading .loading-spinner {
-    display: block;
-  }
-
-  @media (max-width: 1280px) {
-    .mascot-container {
-      margin-left: -6rem;
-    }
-    .content-wrapper {
-      max-width: 1200px;
-    }
-
-    .signup-form {
-      max-width: 800px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .content-wrapper {
-      flex-direction: column;
-      gap: 2rem;
-      padding: 0 1rem;
-      overflow: hidden;
-    }
-
-    .mascot-container {
-      order: -1;
-      margin-left: 0;
-      min-width: auto;
-    }
-
-    .mascot-image {
-      max-width: 300px;
-    }
-
-    .signup-form {
-      max-width: 800px;
-      padding: 2rem;
-    }
-  }
-
-  @media (max-width: 768px) {
+  <style>
     #container {
-      padding: 2rem 0;
-    }
-
-    #hero {
-      margin: 1rem auto 0.75rem;
-    }
-
-    .content-wrapper {
-      margin-bottom: 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 1rem 0 8rem 0;
+      font-family: "Advent Pro", sans-serif;
+      margin-top: 5.5rem;
     }
 
     main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       padding: 1rem;
+      min-height: 100%;
+      padding-bottom: 4rem;
     }
 
     #hero {
-      padding-bottom: 0.75rem;
-    }
-
-    .signup-form {
-      max-width: 100%;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 1rem auto 1rem;
+      position: relative;
+      z-index: 1;
     }
 
     #hero h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
+      color: #ffffff;
+      margin: 0;
+      line-height: 1.2;
+      font-family: "Advent Pro", sans-serif;
+      font-weight: 600;
+      position: relative;
+      right: -30px;
+      z-index: 2;
     }
-  }
 
-  .radio-group {
-    display: flex;
-    gap: 2rem;
-    margin-top: 0.5rem;
-  }
-
-  .radio-label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    color: #e7f7ff;
-    font-weight: 500;
-  }
-
-  .radio-label input[type="radio"] {
-    width: 1rem;
-    height: 1rem;
-    margin: 0;
-    cursor: pointer;
-  }
-
-  .radio-label span {
-    font-family: "Advent Pro", sans-serif;
-  }
-</style>
-
-<script>
-  const form = document.getElementById("signupForm") as HTMLFormElement;
-  const successMessage = document.getElementById(
-    "success-message"
-  ) as HTMLElement;
-
-  if (!form) {
-    console.error("Signup form not found");
-    throw new Error("Signup form not found");
-  }
-
-  if (!successMessage) {
-    console.error("Success message element not found");
-    throw new Error("Success message element not found");
-  }
-
-  // Password strength calculation
-  function calculatePasswordStrength(password: string): {
-    strength: number;
-    label: string;
-  } {
-    let strength = 0;
-    if (password.length >= 8) strength++;
-    if (password.match(/[A-Z]/)) strength++;
-    if (password.match(/[0-9]/)) strength++;
-    if (password.match(/[^A-Za-z0-9]/)) strength++;
-
-    const labels = ["Weak", "Medium", "Strong", "Very Strong"];
-    return {
-      strength: strength,
-      label: labels[strength - 1] || "Very Weak",
-    };
-  }
-
-  // Update password strength indicator
-  function updatePasswordStrength(password: string): void {
-    const strengthBar = document.getElementById(
-      "password-strength-bar"
-    ) as HTMLElement;
-    if (!strengthBar) return;
-
-    const { strength, label } = calculatePasswordStrength(password);
-    const width = (strength / 4) * 100;
-
-    strengthBar.style.width = `${width}%`;
-    strengthBar.className = "password-strength-bar";
-
-    if (strength <= 1) strengthBar.classList.add("strength-weak");
-    else if (strength <= 2) strengthBar.classList.add("strength-medium");
-    else strengthBar.classList.add("strength-strong");
-  }
-
-  // Real-time validation
-  function setupRealTimeValidation(): void {
-    const inputs = form.querySelectorAll("input");
-    inputs.forEach((input) => {
-      input.addEventListener("input", () => {
-        const value = (input as HTMLInputElement).value.trim();
-        const id = input.id;
-
-        // Clear error state when user starts typing
-        clearError(id);
-
-        if (value === "") return; // Don't validate empty fields in real-time
-
-        if (id === "password") {
-          updatePasswordStrength(value);
-          if (value.length < 8) {
-            showError(id, "Password must be at least 8 characters long");
-          }
-        }
-
-        if (id === "confirm-password") {
-          const password = (
-            document.getElementById("password") as HTMLInputElement
-          ).value;
-          if (value && password !== value) {
-            showError(id, "Passwords do not match");
-          }
-        }
-
-        if (id === "email" && value) {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(value)) {
-            showError(id, "Please enter a valid email address");
-          }
-        }
-
-        if (id === "fullname" && value.length < 2) {
-          showError(id, "Full name must be at least 2 characters long");
-        }
-
-        if (id === "username" && value.length < 3) {
-          showError(id, "Username must be at least 3 characters long");
-        }
-      });
-
-      // Also validate on blur (when field loses focus)
-      input.addEventListener("blur", () => {
-        const value = (input as HTMLInputElement).value.trim();
-        const id = input.id;
-
-        if (value === "") {
-          showError(id, "This field is required");
-        }
-      });
-    });
-  }
-
-  function showError(fieldId: string, message: string): void {
-    const input = document.getElementById(fieldId) as HTMLInputElement;
-    const errorElement = document.getElementById(
-      `${fieldId}-error`
-    ) as HTMLElement;
-    if (errorElement) {
-      errorElement.textContent = message;
-      errorElement.className = "error-message show";
-      input.classList.add("error");
+    .content-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4rem;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+      padding: 0 2rem;
+      position: relative;
+      overflow: visible;
+      z-index: 1;
     }
-  }
 
-  function clearError(fieldId: string): void {
-    const input = document.getElementById(fieldId) as HTMLInputElement;
-    const errorElement = document.getElementById(
-      `${fieldId}-error`
-    ) as HTMLElement;
-    if (input && errorElement) {
-      errorElement.textContent = "";
-      errorElement.className = "error-message";
-      input.classList.remove("error");
+    .mascot-container {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-left: -10rem;
     }
-  }
 
-  setupRealTimeValidation();
+    .mascot-image {
+      max-width: 320px;
+      height: auto;
+      object-fit: contain;
+      transform: scaleX(-1);
+    }
 
-  // Store accounts in localStorage
-  function getAccounts(): any[] {
-    const accounts = localStorage.getItem("accounts");
-    return accounts ? JSON.parse(accounts) : [];
-  }
+    .signup-form {
+      width: 800px;
+      background: #54b4e2;
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 0 auto;
+      margin-bottom: 8rem;
+      height: fit-content;
+      position: relative;
+      z-index: 1;
+    }
 
-  function saveAccount(account: any): void {
-    const accounts = getAccounts();
-    accounts.push(account);
-    localStorage.setItem("accounts", JSON.stringify(accounts));
-  }
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      height: fit-content;
+    }
 
-  // Form submission handler
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    .form-groups {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      height: fit-content;
+    }
 
-    // Disable submit button and show loading state
-    const submitBtn = form.querySelector(".submit-btn") as HTMLButtonElement;
-    submitBtn.disabled = true;
-    submitBtn.classList.add("loading");
+    .group-a,
+    .group-b {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      height: fit-content;
+      flex: 1;
+    }
 
-    try {
-      // Get form data
-      const formData = new FormData(form);
-      const password = formData.get("password") as string;
-      const confirmPassword = formData.get("confirm-password") as string;
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      min-height: 5rem;
+      position: relative;
+    }
 
-      // Check if passwords match
-      if (password !== confirmPassword) {
-        showError("confirm-password", "Passwords do not match");
-        return;
+    label {
+      font-weight: 500;
+      color: #e7f7ff;
+      font-family: "Advent Pro", sans-serif;
+      font-size: 18px;
+      height: 1.5rem;
+    }
+
+    input {
+      padding: 0.6rem 0.875rem;
+      border: 2px solid #6461ab;
+      border-radius: 4px;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+      background-color: #e7f7ff;
+      color: #6461ab;
+      font-family: "Advent Pro", sans-serif;
+      height: 2rem;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #d1aeff;
+      box-shadow: 0 0 0 2px rgba(209, 174, 255, 0.2);
+    }
+
+    .submit-btn {
+      margin-top: 1rem;
+      width: 100%;
+      max-width: 200px;
+      align-self: center;
+      padding: 0.75rem;
+      background-color: #6461ab;
+      color: #e7f7ff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.25rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Advent Pro", sans-serif;
+    }
+
+    .submit-btn:hover {
+      background-color: #7673bd;
+    }
+
+    .submit-btn:disabled {
+      background-color: #9997c4;
+      cursor: not-allowed;
+    }
+
+    .error-message {
+      color: #ffe7e7;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      display: none;
+      font-family: "Advent Pro", sans-serif;
+      min-height: 1.5rem;
+      position: absolute;
+      bottom: -1.75rem;
+      left: 0;
+      width: 100%;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    input.error {
+      border-color: #e61b1b;
+      background-color: #ffe7e7;
+    }
+
+    .password-strength {
+      height: 4px;
+      background: #6461ab;
+      border-radius: 2px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      width: 0;
+      transition:
+        width 0.3s ease,
+        background-color 0.3s ease;
+    }
+
+    .strength-weak {
+      background-color: #e74c3c;
+    }
+    .strength-medium {
+      background-color: #f39c12;
+    }
+    .strength-strong {
+      background-color: #2ecc71;
+    }
+
+    .success-message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #2ecc71;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateX(120%);
+      transition: transform 0.3s ease;
+      z-index: 9999;
+      font-weight: 500;
+      pointer-events: none;
+    }
+
+    .success-message.show {
+      transform: translateX(0);
+    }
+
+    .loading-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      position: absolute;
+      right: 1rem;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .submit-btn.loading .loading-spinner {
+      display: block;
+    }
+
+    @media (max-width: 1280px) {
+      .mascot-container {
+        margin-left: -6rem;
+      }
+      .content-wrapper {
+        max-width: 1200px;
       }
 
-      const account = {
-        fullname: formData.get("fullname"),
-        username: formData.get("username"),
-        email: formData.get("email"),
-        birthday: formData.get("birthday"),
-        gender: formData.get("gender"),
-        country: formData.get("country"),
-        password: password,
-        createdAt: new Date().toISOString(),
-      };
-
-      // Save account
-      saveAccount(account);
-
-      // Log saved accounts for verification
-      console.log("Account saved successfully!");
-      console.log("Current accounts in storage:", getAccounts());
-
-      // Show success message
-      successMessage.classList.add("show");
-
-      // Redirect to login page after 2 seconds
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 2000);
-    } catch (error) {
-      console.error("Error during signup:", error);
-      showError("submit", "An error occurred during signup. Please try again.");
-    } finally {
-      // Re-enable submit button
-      submitBtn.disabled = false;
-      submitBtn.classList.remove("loading");
+      /*.signup-form {
+        max-width: 800px;
+      }*/
     }
-  });
-</script>
+
+    @media (max-width: 1024px) {
+      .content-wrapper {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0 1rem;
+        overflow: hidden;
+      }
+
+      .mascot-container {
+        order: -1;
+        margin-left: 0;
+        min-width: auto;
+      }
+
+      .mascot-image {
+        max-width: 300px;
+      }
+
+      .signup-form {
+        max-width: 800px;
+        padding: 2rem;
+      }
+
+      .form-groups {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 768px) {
+      #container {
+        padding: 2rem 0;
+      }
+
+      #hero {
+        margin: 1rem auto 0.75rem;
+      }
+
+      .content-wrapper {
+        margin-bottom: 1.5rem;
+      }
+
+      main {
+        padding: 1rem;
+      }
+
+      #hero {
+        padding-bottom: 0.75rem;
+      }
+
+      .signup-form {
+        max-width: 100%;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      #hero h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 2rem;
+      margin-top: 0.5rem;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      color: #e7f7ff;
+      font-weight: 500;
+    }
+
+    .radio-label input[type="radio"] {
+      width: 1rem;
+      height: 1rem;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .radio-label span {
+      font-family: "Advent Pro", sans-serif;
+    }
+  </style>
+
+  <script>
+    const form = document.getElementById("signupForm") as HTMLFormElement;
+    const successMessage = document.getElementById(
+      "success-message"
+    ) as HTMLElement;
+
+    if (!form) {
+      console.error("Signup form not found");
+      throw new Error("Signup form not found");
+    }
+
+    if (!successMessage) {
+      console.error("Success message element not found");
+      throw new Error("Success message element not found");
+    }
+
+    // Password strength calculation
+    function calculatePasswordStrength(password: string): {
+      strength: number;
+      label: string;
+    } {
+      let strength = 0;
+      if (password.length >= 8) strength++;
+      if (password.match(/[A-Z]/)) strength++;
+      if (password.match(/[0-9]/)) strength++;
+      if (password.match(/[^A-Za-z0-9]/)) strength++;
+
+      const labels = ["Weak", "Medium", "Strong", "Very Strong"];
+      return {
+        strength: strength,
+        label: labels[strength - 1] || "Very Weak",
+      };
+    }
+
+    // Update password strength indicator
+    function updatePasswordStrength(password: string): void {
+      const strengthBar = document.getElementById(
+        "password-strength-bar"
+      ) as HTMLElement;
+      if (!strengthBar) return;
+
+      const { strength, label } = calculatePasswordStrength(password);
+      const width = (strength / 4) * 100;
+
+      strengthBar.style.width = `${width}%`;
+      strengthBar.className = "password-strength-bar";
+
+      if (strength <= 1) strengthBar.classList.add("strength-weak");
+      else if (strength <= 2) strengthBar.classList.add("strength-medium");
+      else strengthBar.classList.add("strength-strong");
+    }
+
+    // Real-time validation
+    function setupRealTimeValidation(): void {
+      const inputs = form.querySelectorAll("input");
+      inputs.forEach((input) => {
+        input.addEventListener("input", () => {
+          const value = (input as HTMLInputElement).value.trim();
+          const id = input.id;
+
+          // Clear error state when user starts typing
+          clearError(id);
+
+          if (value === "") return; // Don't validate empty fields in real-time
+
+          if (id === "password") {
+            updatePasswordStrength(value);
+            if (value.length < 8) {
+              showError(id, "Password must be at least 8 characters long");
+            }
+          }
+
+          if (id === "confirm-password") {
+            const password = (
+              document.getElementById("password") as HTMLInputElement
+            ).value;
+            if (value && password !== value) {
+              showError(id, "Passwords do not match");
+            }
+          }
+
+          if (id === "email" && value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+              showError(id, "Please enter a valid email address");
+            }
+          }
+
+          if (id === "fullname" && value.length < 2) {
+            showError(id, "Full name must be at least 2 characters long");
+          }
+
+          if (id === "username" && value.length < 3) {
+            showError(id, "Username must be at least 3 characters long");
+          }
+        });
+
+        // Also validate on blur (when field loses focus)
+        input.addEventListener("blur", () => {
+          const value = (input as HTMLInputElement).value.trim();
+          const id = input.id;
+
+          if (value === "") {
+            showError(id, "This field is required");
+          }
+        });
+      });
+    }
+
+    function showError(fieldId: string, message: string): void {
+      const input = document.getElementById(fieldId) as HTMLInputElement;
+      const errorElement = document.getElementById(
+        `${fieldId}-error`
+      ) as HTMLElement;
+      if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.className = "error-message show";
+        input.classList.add("error");
+      }
+    }
+
+    function clearError(fieldId: string): void {
+      const input = document.getElementById(fieldId) as HTMLInputElement;
+      const errorElement = document.getElementById(
+        `${fieldId}-error`
+      ) as HTMLElement;
+      if (input && errorElement) {
+        errorElement.textContent = "";
+        errorElement.className = "error-message";
+        input.classList.remove("error");
+      }
+    }
+
+    setupRealTimeValidation();
+
+    // Store accounts in localStorage
+    function getAccounts(): any[] {
+      const accounts = localStorage.getItem("accounts");
+      return accounts ? JSON.parse(accounts) : [];
+    }
+
+    function saveAccount(account: any): void {
+      const accounts = getAccounts();
+      accounts.push(account);
+      localStorage.setItem("accounts", JSON.stringify(accounts));
+    }
+
+    // Form submission handler
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Disable submit button and show loading state
+      const submitBtn = form.querySelector(".submit-btn") as HTMLButtonElement;
+      submitBtn.disabled = true;
+      submitBtn.classList.add("loading");
+
+      try {
+        // Get form data
+        const formData = new FormData(form);
+        const password = formData.get("password") as string;
+        const confirmPassword = formData.get("confirm-password") as string;
+
+        // Check if passwords match
+        if (password !== confirmPassword) {
+          showError("confirm-password", "Passwords do not match");
+          return;
+        }
+
+        const account = {
+          fullname: formData.get("fullname"),
+          username: formData.get("username"),
+          email: formData.get("email"),
+          birthday: formData.get("birthday"),
+          gender: formData.get("gender"),
+          country: formData.get("country"),
+          password: password,
+          createdAt: new Date().toISOString(),
+        };
+
+        // Save account
+        saveAccount(account);
+
+        // Log saved accounts for verification
+        console.log("Account saved successfully!");
+        console.log("Current accounts in storage:", getAccounts());
+
+        // Show success message
+        successMessage.classList.add("show");
+
+        // Redirect to login page after 2 seconds
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 2000);
+      } catch (error) {
+        console.error("Error during signup:", error);
+        showError(
+          "submit",
+          "An error occurred during signup. Please try again."
+        );
+      } finally {
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.classList.remove("loading");
+      }
+    });
+  </script>
+</Layout>
